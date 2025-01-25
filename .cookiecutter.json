@@ -1,0 +1,16 @@
+{
+  "_checkout": "2022.6.3",
+  "_output_dir": "E:\\VS_TEST\\pylibrary_template",
+  "_repo_dir": "C:\\Users\\Mohse\\.cookiecutters\\cookiecutter-hypermodern-python",
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Mohsen Hasan Nezhad",
+  "copyright_year": "2025",
+  "development_status": "Development Status :: 2 - Pre-Alpha",
+  "email": "mohsenhasannzehad@outlook.com",
+  "friendly_name": "Cjolowicz Cookiecutter Hypermodern",
+  "github_user": "MohsenHNSJ",
+  "license": "MIT",
+  "package_name": "cjolowicz_cookiecutter_hypermodern",
+  "project_name": "cjolowicz-cookiecutter-hypermodern",
+  "version": "0.1.0"
+}
