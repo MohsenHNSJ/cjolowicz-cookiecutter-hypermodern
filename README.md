@@ -34,7 +34,7 @@
 You can install _Cjolowicz Cookiecutter Hypermodern_ via [pip] from [PyPI]:
 
 ```console
-$ pip install cjolowicz-cookiecutter-hypermodern
+pip install cjolowicz-cookiecutter-hypermodern
 ```
 
 ## Usage
