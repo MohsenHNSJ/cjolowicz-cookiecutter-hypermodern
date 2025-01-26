@@ -20,12 +20,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+          check-latest: true
 
       - name: Upgrade pip
         run: |
           pip install --constraint=.github/workflows/constraints.txt pip
+          pip install --upgrade pip
           pip --version
-
+          
       - name: Install Poetry
         run: |
           pip install --constraint=.github/workflows/constraints.txt poetry
@@ -34,7 +36,7 @@ jobs:
       - name: Check if there is a parent commit
         id: check-parent-commit
         run: |
-          echo "::set-output name=sha::$(git rev-parse --verify --quiet HEAD^)"
+          echo "{sha}={$(git rev-parse --verify --quiet HEAD^)}" >> $GITHUB_OUTPUT
 
       - name: Detect and tag new version
         id: check-version
@@ -68,7 +70,7 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
 
       - name: Publish the release notes
         uses: release-drafter/release-drafter@v6.1.0
