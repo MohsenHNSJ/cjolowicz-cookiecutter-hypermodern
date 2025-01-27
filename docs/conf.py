@@ -1,4 +1,5 @@
 """Sphinx configuration."""
+
 project = "Cjolowicz Cookiecutter Hypermodern"
 author = "Mohsen Hasan Nezhad"
 copyright = "2025, Mohsen Hasan Nezhad"
