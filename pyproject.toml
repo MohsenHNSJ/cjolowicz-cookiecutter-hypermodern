@@ -20,6 +20,10 @@ documentation = "https://cjolowicz-cookiecutter-hypermodern.readthedocs.io"
 Changelog = "https://github.com/MohsenHNSJ/cjolowicz-cookiecutter-hypermodern/releases"
 
 [tool.poetry]
+name = "cjolowicz-cookiecutter-hypermodern"
+version = "0.1.0"
+description = "Cjolowicz Cookiecutter Hypermodern"
+authors = ["Mohsen Hasan Nezhad <mohsenhasannzehad@outlook.com>"]
 classifiers = ["Development Status :: 2 - Pre-Alpha"]
 
 [tool.poetry.dependencies]
