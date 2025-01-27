@@ -36,6 +36,7 @@
     "PYPI",
     "pytest",
     "pyupgrade",
+    "pyupio",
     "sniffio",
     "trustme",
     "truststore",

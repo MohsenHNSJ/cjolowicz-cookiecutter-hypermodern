@@ -13,7 +13,6 @@ jobs:
       matrix:
         include:
           - { python: "3.10", os: "ubuntu-latest", session: "pre-commit" }
-          - { python: "3.10", os: "ubuntu-latest", session: "safety" }
           - { python: "3.10", os: "ubuntu-latest", session: "mypy" }
           - { python: "3.10", os: "ubuntu-latest", session: "tests" }
           - { python: "3.10", os: "windows-latest", session: "tests" }
@@ -22,7 +21,6 @@ jobs:
           - { python: "3.10", os: "ubuntu-latest", session: "xdoctest" }
           - { python: "3.10", os: "ubuntu-latest", session: "docs-build" }
           - { python: "3.11", os: "ubuntu-latest", session: "pre-commit" }
-          - { python: "3.11", os: "ubuntu-latest", session: "safety" }
           - { python: "3.11", os: "ubuntu-latest", session: "mypy" }
           - { python: "3.11", os: "ubuntu-latest", session: "tests" }
           - { python: "3.11", os: "windows-latest", session: "tests" }
@@ -31,7 +29,6 @@ jobs:
           - { python: "3.11", os: "ubuntu-latest", session: "xdoctest" }
           - { python: "3.11", os: "ubuntu-latest", session: "docs-build" }
           - { python: "3.12", os: "ubuntu-latest", session: "pre-commit" }
-          - { python: "3.12", os: "ubuntu-latest", session: "safety" }
           - { python: "3.12", os: "ubuntu-latest", session: "mypy" }
           - { python: "3.12", os: "ubuntu-latest", session: "tests" }
           - { python: "3.12", os: "windows-latest", session: "tests" }
@@ -40,7 +37,6 @@ jobs:
           - { python: "3.12", os: "ubuntu-latest", session: "xdoctest" }
           - { python: "3.12", os: "ubuntu-latest", session: "docs-build" }
           - { python: "3.13", os: "ubuntu-latest", session: "pre-commit" }
-          - { python: "3.13", os: "ubuntu-latest", session: "safety" }
           - { python: "3.13", os: "ubuntu-latest", session: "mypy" }
           - { python: "3.13", os: "ubuntu-latest", session: "tests" }
           - { python: "3.13", os: "windows-latest", session: "tests" }
@@ -175,3 +171,13 @@ jobs:
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v5
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Safety CLI to check for vulnerabilities
+        uses: pyupio/safety-action@v1
+        with:
+          api-key: ${{ secrets.SAFETY_CLI_API }}
+          args: --detailed-output
