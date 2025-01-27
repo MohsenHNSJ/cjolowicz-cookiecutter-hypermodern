@@ -59,6 +59,9 @@ myst-parser = { version = ">=4.0.0" }
 [tool.poetry.scripts]
 cjolowicz-cookiecutter-hypermodern = "cjolowicz_cookiecutter_hypermodern.__main__:main"
 
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.9"
+
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
 tests = ["tests", "*/tests"]
