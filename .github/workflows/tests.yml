@@ -85,10 +85,6 @@ jobs:
         run: |
           nox --python=3.13
 
-      - name: List all files
-        run: |
-          ls -R
-
       - name: Upload coverage data
         if: matrix.session == 'tests'
         uses: "actions/upload-artifact@v4"
@@ -142,7 +138,7 @@ jobs:
           pip install --constraint=.github/workflows/constraints.txt pip
           pip install --upgrade pip
           pip --version
-        
+
       - name: Capture Python version
         run: echo "PYTHON_VERSION=$(python --version | awk '{print $2}')" >> $GITHUB_ENV
 
