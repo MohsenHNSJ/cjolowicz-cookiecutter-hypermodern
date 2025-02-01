@@ -68,7 +68,8 @@ jobs:
           payload = sys.version.encode() + sys.executable.encode()
           digest = hashlib.sha256(payload).hexdigest()
           result = "Linux-{}-{}-pre-commit".format(python, digest[:8])
-          print("::set-output name=result::{}".format(result))
+          with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+              env_file.write(f"result={result}\n")
 
       - name: Restore pre-commit cache
         uses: actions/cache@v4
@@ -81,7 +82,7 @@ jobs:
 
       - name: Run Nox
         run: |
-          nox --python=${{ env.PYTHON_VERSION}}
+          nox --python=3.13
 
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
