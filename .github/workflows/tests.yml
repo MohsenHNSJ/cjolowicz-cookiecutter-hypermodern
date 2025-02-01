@@ -172,7 +172,7 @@ jobs:
           pip install --constraint=.github/workflows/constraints.txt pip
           pip install --upgrade pip
           pip --version
-        
+
       - name: Capture Python version
         run: echo "PYTHON_VERSION=$(python --version | awk '{print $2}')" >> $GITHUB_ENV
 

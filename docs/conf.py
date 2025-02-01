@@ -1,4 +1,5 @@
 """Sphinx configuration."""
+
 # pylint: disable=C0103,W0622
 
 project = "Cjolowicz Cookiecutter Hypermodern"
