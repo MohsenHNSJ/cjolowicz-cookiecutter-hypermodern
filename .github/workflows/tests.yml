@@ -86,11 +86,11 @@ jobs:
           nox --python=3.13
 
       - name: Upload coverage data
-        if: always() && matrix.session == 'tests'
+        if: matrix.session == 'tests'
         uses: "actions/upload-artifact@v4"
         with:
           name: coverage-data
-          path: ".coverage.*"
+          path: .coverage.*
 
       - name: Upload documentation
         if: matrix.session == 'docs-build'
@@ -165,20 +165,25 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+          check-latest: true
 
       - name: Upgrade pip
         run: |
           pip install --constraint=.github/workflows/constraints.txt pip
+          pip install --upgrade pip
           pip --version
+        
+      - name: Capture Python version
+        run: echo "PYTHON_VERSION=$(python --version | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: Install Poetry
         run: |
-          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} poetry
           poetry --version
 
       - name: Install Nox
         run: |
-          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} nox
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
 
@@ -186,6 +191,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-data
+          path: ./
 
       - name: Combine coverage data and display human readable report
         run: |
