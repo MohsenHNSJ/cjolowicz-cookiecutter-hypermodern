@@ -18,12 +18,12 @@ jobs:
           - { session: "typeguard" }
           - { session: "xdoctest" }
           - { session: "docs-build" }
-    
+
     env:
       NOXSESSION: ${{ matrix.session }}
       FORCE_COLOR: "1"
       PRE_COMMIT_COLOR: "always"
-    
+
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
 
           with open(os.environ["GITHUB_ENV"], mode="a") as io:
               print(f"VIRTUALENV_PIP={pip.__version__}", file=io)
-        
+
       - name: Install Poetry
         run: |
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
@@ -87,14 +87,14 @@ jobs:
       - name: Run Nox
         run: |
           nox --python=3.13
-      
+
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
         uses: "actions/upload-artifact@v4"
         with:
           name: coverage-data
           path: ".coverage.*"
-        
+
       - name: Upload documentation
         if: matrix.session == 'docs-build'
         uses: actions/upload-artifact@v4
