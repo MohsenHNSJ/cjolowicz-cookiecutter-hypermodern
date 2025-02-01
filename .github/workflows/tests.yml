@@ -52,7 +52,7 @@ jobs:
       - name: Install Nox
         run: |
           python --version
-          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} nox
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
 
@@ -81,7 +81,7 @@ jobs:
 
       - name: Run Nox
         run: |
-          nox --python=3.13
+          nox --python=${{ env.PYTHON_VERSION}}
 
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
