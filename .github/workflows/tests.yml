@@ -39,24 +39,15 @@ jobs:
           pip install --constraint=.github/workflows/constraints.txt pip
           pip install --upgrade pip
           pip --version
-          pipx --version
-          python --version
 
-      - name: Upgrade pip in virtual environments
-        shell: python
-        run: |
-          import os
-          import pip
-
-          with open(os.environ["GITHUB_ENV"], mode="a") as io:
-              print(f"VIRTUALENV_PIP={pip.__version__}", file=io)
+      - name: Capture Python version
+        run: echo "PYTHON_VERSION=$(python --version)" >> $GITHUB_ENV
 
       - name: Install Poetry
         run: |
-          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} poetry
           pipx inject poetry poetry-plugin-export
           poetry --version
-          python --version
 
       - name: Install Nox
         run: |
@@ -64,7 +55,6 @@ jobs:
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
-          python --version
 
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
@@ -161,13 +151,6 @@ jobs:
       - name: Run Nox
         run: |
           nox --python=${{ matrix.python }}
-
-      - name: Upload coverage data
-        if: always()
-        uses: "actions/upload-artifact@v4"
-        with:
-          name: coverage-data
-          path: ".coverage.*"
 
   coverage:
     runs-on: ubuntu-latest
