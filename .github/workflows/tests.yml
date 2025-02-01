@@ -142,16 +142,19 @@ jobs:
           pip install --constraint=.github/workflows/constraints.txt pip
           pip install --upgrade pip
           pip --version
+        
+      - name: Capture Python version
+        run: echo "PYTHON_VERSION=$(python --version | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: Install Poetry
         run: |
-          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} poetry
           pipx inject poetry poetry-plugin-export
           poetry --version
 
       - name: Install Nox
         run: |
-          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} nox
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
 
@@ -184,6 +187,7 @@ jobs:
       - name: Install Poetry
         run: |
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt --python ${{ env.PYTHON_VERSION}} poetry
+          pipx inject poetry poetry-plugin-export
           poetry --version
 
       - name: Install Nox
