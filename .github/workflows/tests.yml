@@ -85,6 +85,10 @@ jobs:
         run: |
           nox --python=3.13
 
+      - name: List all files
+        run: |
+          ls -R
+
       - name: Upload coverage data
         if: matrix.session == 'tests'
         uses: "actions/upload-artifact@v4"
